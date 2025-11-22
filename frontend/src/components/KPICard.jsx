@@ -1,22 +1,54 @@
 "use client"
 
-export default function KPICard({ title, value, color, icon, onClick }) {
-  const colorClasses = {
-    purple: "bg-purple-100 text-purple-700 border-purple-200",
-    red: "bg-red-100 text-red-700 border-red-200",
-    blue: "bg-blue-100 text-blue-700 border-blue-200",
-    green: "bg-green-100 text-green-700 border-green-200",
-    yellow: "bg-yellow-100 text-yellow-700 border-yellow-200",
+export default function KPICard({ title, value, color, icon: Icon, onClick }) {
+  const colorStyles = {
+    purple: {
+      bg: "#E4D8F5",
+      text: "#714B67",
+      border: "#C4ACE3",
+    },
+    red: {
+      bg: "#FEE2E2",
+      text: "#DC2626",
+      border: "#FCA5A5",
+    },
+    blue: {
+      bg: "#DBEAFE",
+      text: "#2563EB",
+      border: "#93C5FD",
+    },
+    green: {
+      bg: "#D1FAE5",
+      text: "#059669",
+      border: "#6EE7B7",
+    },
+    yellow: {
+      bg: "#FEF3C7",
+      text: "#D97706",
+      border: "#FCD34D",
+    },
   }
 
+  const style = colorStyles[color]
+
   return (
-    <div onClick={onClick} className={`card cursor-pointer hover:shadow-md transition border-2 ${colorClasses[color]}`}>
+    <div
+      onClick={onClick}
+      className="card cursor-pointer border-2 hover:scale-105"
+      style={{ borderColor: style.border }}
+    >
       <div className="flex justify-between items-start">
         <div>
-          <p className="text-sm font-medium opacity-75">{title}</p>
-          <p className="text-3xl font-bold mt-2">{value}</p>
+          <p className="text-sm font-medium mb-2" style={{ color: "#8F8F9F" }}>
+            {title}
+          </p>
+          <p className="text-4xl font-bold" style={{ color: style.text }}>
+            {value}
+          </p>
         </div>
-        <span className="text-3xl">{icon}</span>
+        <div className="p-3 rounded-xl" style={{ backgroundColor: style.bg }}>
+          <Icon className="w-6 h-6" style={{ color: style.text }} />
+        </div>
       </div>
     </div>
   )

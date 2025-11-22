@@ -59,7 +59,12 @@ export default function Dashboard({ currentPage, setCurrentPage, userInfo, onLog
       />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">{renderPage()}</div>
+      <div
+        className={`flex-1 overflow-auto pt-16 transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-20"}`}
+        style={{ backgroundColor: "#F9FAFB" }}
+      >
+        <div className="p-6">{renderPage()}</div>
+      </div>
     </div>
   )
 }

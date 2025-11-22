@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { FiArrowLeft, FiCheck, FiPrinter, FiX, FiPlus, FiTrash2 } from "react-icons/fi"
 import { API_URL } from "../../config"
 
 export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
@@ -179,40 +180,50 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
       {/* Header */}
       <div className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-grey-900 mb-2">Receipt</h1>
-          <p className="text-grey-600">When user click on receipt operations - By default land on List View</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: "#714B67" }}>
+            Receipt
+          </h1>
+          <p style={{ color: "#8F8F9F" }}>When user click on receipt operations - By default land on List View</p>
         </div>
-        <button onClick={() => setCurrentPage("receipts")} className="text-purple-600 hover:text-purple-700">
-          ← Back to List
+        <button
+          onClick={() => setCurrentPage("receipts")}
+          className="flex items-center gap-2 transition-colors"
+          style={{ color: "#714B67" }}
+        >
+          <FiArrowLeft className="w-5 h-5" />
+          Back to List
         </button>
       </div>
 
-      {/* Action Buttons */}
       <div className="flex gap-4 mb-6">
-        <button onClick={() => setCurrentPage("receipts")} className="btn-secondary">
+        <button onClick={() => setCurrentPage("receipts")} className="btn-secondary flex items-center gap-2">
+          <FiPlus className="w-4 h-4" />
           New
         </button>
         <button
           onClick={handleValidate}
           disabled={receipt.status !== "Draft"}
-          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
+          <FiCheck className="w-4 h-4" />
           Validate
         </button>
         <button
           onClick={handlePrint}
           disabled={receipt.status !== "Done"}
-          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
+          <FiPrinter className="w-4 h-4" />
           Print
         </button>
-        <button onClick={handleCancel} className="btn-secondary">
+        <button onClick={handleCancel} className="btn-secondary flex items-center gap-2">
+          <FiX className="w-4 h-4" />
           Cancel
         </button>
 
         {/* Status Indicator */}
         <div className="ml-auto flex items-center gap-4">
-          <div className="text-sm text-grey-600">
+          <div className="text-sm" style={{ color: "#8F8F9F" }}>
             <span className="font-semibold">Status Flow:</span> Draft → Ready → Done
           </div>
           <span className={`px-4 py-2 rounded-full font-semibold ${getStatusColor(receipt.status)}`}>
@@ -224,15 +235,21 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
       {/* Receipt Form */}
       <div className="card mb-6">
         {/* Reference */}
-        <div className="mb-6 p-6 bg-grey-50 rounded-lg">
-          <h2 className="text-2xl font-bold text-purple-700 font-mono">{receipt.reference}</h2>
-          <p className="text-sm text-grey-500 mt-1">Reference auto-generated</p>
+        <div className="mb-6 p-6 rounded-lg" style={{ backgroundColor: "#E4D8F5" }}>
+          <h2 className="text-2xl font-bold font-mono" style={{ color: "#714B67" }}>
+            {receipt.reference}
+          </h2>
+          <p className="text-sm mt-1" style={{ color: "#8F8F9F" }}>
+            Reference auto-generated
+          </p>
         </div>
 
         {/* Form Fields */}
         <div className="grid grid-cols-2 gap-6 p-6">
           <div>
-            <label className="block text-sm font-semibold text-grey-700 mb-2">Receive From</label>
+            <label className="block text-sm font-semibold mb-2" style={{ color: "#4A4A4A" }}>
+              Receive From
+            </label>
             <input
               type="text"
               className="input-field"
@@ -243,7 +260,9 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-grey-700 mb-2">Responsible</label>
+            <label className="block text-sm font-semibold mb-2" style={{ color: "#4A4A4A" }}>
+              Responsible
+            </label>
             <input
               type="text"
               className="input-field"
@@ -251,11 +270,15 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
               onChange={(e) => setReceipt({ ...receipt, responsible: e.target.value })}
               placeholder="Person responsible"
             />
-            <p className="text-xs text-grey-500 mt-1">Auto-filled with logged-in user</p>
+            <p className="text-xs mt-1" style={{ color: "#8F8F9F" }}>
+              Auto-filled with logged-in user
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-grey-700 mb-2">Schedule Date</label>
+            <label className="block text-sm font-semibold mb-2" style={{ color: "#4A4A4A" }}>
+              Schedule Date
+            </label>
             <input
               type="date"
               className="input-field"
@@ -268,14 +291,18 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
 
       {/* Products Section */}
       <div className="card">
-        <div className="border-b-2 border-purple-700 p-4">
-          <h3 className="text-xl font-bold text-purple-700">Products</h3>
+        <div className="border-b-2 p-4" style={{ borderColor: "#714B67" }}>
+          <h3 className="text-xl font-bold" style={{ color: "#714B67" }}>
+            Products
+          </h3>
         </div>
 
         {/* Add Product */}
-        <div className="p-6 bg-grey-50 flex gap-4 items-end">
+        <div className="p-6 flex gap-4 items-end" style={{ backgroundColor: "#E5E5E7" }}>
           <div className="flex-1">
-            <label className="block text-sm font-semibold text-grey-700 mb-2">Select Product</label>
+            <label className="block text-sm font-semibold mb-2" style={{ color: "#4A4A4A" }}>
+              Select Product
+            </label>
             <select
               className="input-field"
               value={selectedProduct}
@@ -291,7 +318,9 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
           </div>
 
           <div className="w-32">
-            <label className="block text-sm font-semibold text-grey-700 mb-2">Quantity</label>
+            <label className="block text-sm font-semibold mb-2" style={{ color: "#4A4A4A" }}>
+              Quantity
+            </label>
             <input
               type="number"
               className="input-field"
@@ -302,7 +331,8 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
             />
           </div>
 
-          <button onClick={addProduct} className="btn-primary">
+          <button onClick={addProduct} className="btn-primary flex items-center gap-2">
+            <FiPlus className="w-5 h-5" />
             Add Product
           </button>
         </div>
@@ -311,31 +341,46 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-grey-300">
-                <th className="text-left py-3 px-4 font-semibold text-grey-700">Product</th>
-                <th className="text-left py-3 px-4 font-semibold text-grey-700">SKU</th>
-                <th className="text-right py-3 px-4 font-semibold text-grey-700">Quantity</th>
-                <th className="text-center py-3 px-4 font-semibold text-grey-700">Action</th>
+              <tr style={{ borderBottom: "1px solid #E5E5E7" }}>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#4A4A4A" }}>
+                  Product
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#4A4A4A" }}>
+                  SKU
+                </th>
+                <th className="text-right py-3 px-4 font-semibold" style={{ color: "#4A4A4A" }}>
+                  Quantity
+                </th>
+                <th className="text-center py-3 px-4 font-semibold" style={{ color: "#4A4A4A" }}>
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {receipt.products.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="text-center py-8 text-grey-500">
+                  <td colSpan="4" className="text-center py-8" style={{ color: "#8F8F9F" }}>
                     No products added yet. Add products above.
                   </td>
                 </tr>
               ) : (
                 receipt.products.map((product, index) => (
-                  <tr key={index} className="border-b border-grey-200 hover:bg-grey-50">
-                    <td className="py-3 px-4">{product.name}</td>
-                    <td className="py-3 px-4 font-mono text-sm text-grey-600">[{product.sku}]</td>
-                    <td className="py-3 px-4 text-right font-semibold">{product.quantity}</td>
+                  <tr key={index} className="hover:bg-gray-50" style={{ borderBottom: "1px solid #E5E5E7" }}>
+                    <td className="py-3 px-4" style={{ color: "#4A4A4A" }}>
+                      {product.name}
+                    </td>
+                    <td className="py-3 px-4 font-mono text-sm" style={{ color: "#8F8F9F" }}>
+                      [{product.sku}]
+                    </td>
+                    <td className="py-3 px-4 text-right font-semibold" style={{ color: "#4A4A4A" }}>
+                      {product.quantity}
+                    </td>
                     <td className="py-3 px-4 text-center">
                       <button
                         onClick={() => removeProduct(index)}
-                        className="text-red-600 hover:text-red-700 text-sm font-semibold"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
                       >
+                        <FiTrash2 className="w-4 h-4" />
                         Remove
                       </button>
                     </td>
@@ -346,7 +391,7 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
           </table>
         </div>
 
-        <div className="p-4 bg-grey-50 text-sm text-grey-600">
+        <div className="p-4 text-sm" style={{ backgroundColor: "#E5E5E7", color: "#8F8F9F" }}>
           <p>Auto fill with the current logged in users.</p>
           <p className="mt-1">On click, TODO, move to Ready</p>
           <p className="mt-1">on click, Validate move to Done</p>
@@ -356,16 +401,22 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
       {/* Action Button at Bottom */}
       {receipt.status === "Ready" && (
         <div className="mt-6 flex justify-end">
-          <button onClick={handleDone} className="btn-primary text-lg px-8 py-3">
+          <button onClick={handleDone} className="btn-primary text-lg px-8 py-3 flex items-center gap-2">
+            <FiCheck className="w-5 h-5" />
             Mark as Done
           </button>
         </div>
       )}
 
       {/* Status Info Box */}
-      <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-        <h4 className="font-semibold text-purple-900 mb-2">Status Workflow Guide:</h4>
-        <ul className="text-sm text-purple-800 space-y-1">
+      <div
+        className="mt-6 p-4 rounded-lg"
+        style={{ backgroundColor: "#E4D8F5", borderColor: "#714B67", border: "1px solid" }}
+      >
+        <h4 className="font-semibold mb-2" style={{ color: "#714B67" }}>
+          Status Workflow Guide:
+        </h4>
+        <ul className="text-sm space-y-1" style={{ color: "#4A4A4A" }}>
           <li>
             <strong>Draft:</strong> Initial state - Add products and fill details
           </li>
@@ -376,7 +427,9 @@ export default function ReceiptForm({ setCurrentPage, receiptId = null }) {
             <strong>Done:</strong> Receipt completed and goods received
           </li>
         </ul>
-        <p className="text-xs text-purple-600 mt-3">Print the receipt once it's DONE</p>
+        <p className="text-xs mt-3" style={{ color: "#714B67" }}>
+          Print the receipt once it's DONE
+        </p>
       </div>
     </div>
   )
