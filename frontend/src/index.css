@@ -16,32 +16,104 @@ body {
   background-color: #f9fafb;
 }
 
+/* Updated CSS variables to use Odoo color scheme */
 :root {
-  --purple-primary: #6b21a8;
-  --purple-light: #9333ea;
-  --grey-dark: #374151;
-  --grey-medium: #6b7280;
-  --grey-light: #f3f4f6;
+  /* Brand Purples */
+  --odoo-purple: #714b67;
+  --deep-plum: #5a3a52;
+  --soft-lavender: #a287d0;
+  --lilac-mist: #e4d8f5;
+
+  /* Accent Purples */
+  --royal-purple: #7851a7;
+  --pastel-lavender: #c4ace3;
+
+  /* Cream Backgrounds */
+  --cream: #fffdd1;
+  --warm-cream: #fff3bd;
+
+  /* Neutral Greys */
+  --soft-gray: #e5e5e7;
+  --medium-gray: #8f8f9f;
+  --dark-gray: #4a4a4a;
+  --charcoal: #2e2e2e;
   --white: #ffffff;
 }
 
-/* Custom button styles */
+/* Custom button styles with Odoo colors */
 .btn-primary {
-  @apply px-4 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800 transition;
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm;
+  background-color: var(--odoo-purple);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--deep-plum);
+  @apply shadow-md;
 }
 
 .btn-secondary {
-  @apply px-4 py-2 bg-grey-200 text-grey-800 rounded-md hover:bg-grey-300 transition;
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  background-color: var(--soft-gray);
+  color: var(--charcoal);
+}
+
+.btn-secondary:hover {
+  background-color: var(--medium-gray);
+  color: var(--white);
 }
 
 .input-field {
-  @apply w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:border-purple-600;
+  @apply w-full px-4 py-2.5 border rounded-lg transition-all duration-200;
+  border-color: var(--soft-gray);
+  color: var(--charcoal);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--odoo-purple);
+  @apply ring-2 ring-opacity-20;
+  ring-color: var(--odoo-purple);
 }
 
 .card {
-  @apply bg-white rounded-lg shadow-sm border border-grey-200 p-6;
+  @apply bg-white rounded-xl shadow-sm border p-6 transition-all duration-200;
+  border-color: var(--soft-gray);
+}
+
+.card:hover {
+  @apply shadow-md;
 }
 
 .table-row {
-  @apply border-b border-grey-200 hover:bg-grey-50 transition;
+  @apply border-b transition-all duration-200;
+  border-color: var(--soft-gray);
+}
+
+.table-row:hover {
+  background-color: var(--lilac-mist);
+}
+
+.badge {
+  @apply px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-draft {
+  background-color: var(--soft-gray);
+  color: var(--dark-gray);
+}
+
+.badge-ready {
+  background-color: var(--soft-lavender);
+  color: var(--deep-plum);
+}
+
+.badge-done {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge-waiting {
+  background-color: var(--warm-cream);
+  color: #92400e;
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { FiPackage, FiAlertTriangle, FiDownload, FiUpload, FiRepeat } from "react-icons/fi"
 import KPICard from "../KPICard"
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
@@ -23,9 +24,6 @@ export default function DashboardHome({ setCurrentPage }) {
 
   const fetchDashboardData = async () => {
     try {
-      console.log("[v0] Fetching dashboard data from API")
-
-      // Fetch all necessary data in parallel
       const [productsRes, receiptsRes, deliveriesRes] = await Promise.all([
         fetch(`${API_URL}/api/products`),
         fetch(`${API_URL}/api/receipts`),
@@ -36,9 +34,6 @@ export default function DashboardHome({ setCurrentPage }) {
       const receipts = await receiptsRes.json()
       const deliveries = await deliveriesRes.json()
 
-      console.log("[v0] Dashboard data received:", { products, receipts, deliveries })
-
-      // Calculate KPIs
       setKpis({
         totalProducts: products.length,
         lowStock: products.filter((p) => p.initialstock < 20).length,
@@ -47,13 +42,12 @@ export default function DashboardHome({ setCurrentPage }) {
         internalTransfers: deliveries.filter((d) => d.status === "Ready").length,
       })
 
-      // Set recent items (last 3)
       setRecentReceipts(receipts.slice(0, 3))
       setRecentDeliveries(deliveries.slice(0, 3))
 
       setLoading(false)
     } catch (error) {
-      console.error("[v0] Error fetching dashboard data:", error)
+      console.error("Error fetching dashboard data:", error)
       setLoading(false)
     }
   }
@@ -61,7 +55,9 @@ export default function DashboardHome({ setCurrentPage }) {
   if (loading) {
     return (
       <div className="p-8 mt-16">
-        <div className="text-center text-gray-600">Loading dashboard data...</div>
+        <div className="text-center" style={{ color: "#8F8F9F" }}>
+          Loading dashboard data...
+        </div>
       </div>
     )
   }
@@ -70,8 +66,10 @@ export default function DashboardHome({ setCurrentPage }) {
     <div className="p-8 mt-16">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-        <p className="text-gray-600">Welcome to your inventory operations dashboard</p>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: "#2E2E2E" }}>
+          Dashboard
+        </h1>
+        <p style={{ color: "#8F8F9F" }}>Welcome to your inventory operations dashboard</p>
       </div>
 
       {/* KPI Cards Grid */}
@@ -80,29 +78,35 @@ export default function DashboardHome({ setCurrentPage }) {
           title="Total Products"
           value={kpis.totalProducts}
           color="purple"
-          icon="📦"
+          icon={FiPackage}
           onClick={() => setCurrentPage("stock")}
         />
-        <KPICard title="Low Stock" value={kpis.lowStock} color="red" icon="⚠️" onClick={() => setCurrentPage("stock")} />
+        <KPICard
+          title="Low Stock"
+          value={kpis.lowStock}
+          color="red"
+          icon={FiAlertTriangle}
+          onClick={() => setCurrentPage("stock")}
+        />
         <KPICard
           title="Pending Receipts"
           value={kpis.pendingReceipts}
           color="blue"
-          icon="📥"
+          icon={FiDownload}
           onClick={() => setCurrentPage("receipts")}
         />
         <KPICard
           title="Pending Deliveries"
           value={kpis.pendingDeliveries}
           color="green"
-          icon="📤"
+          icon={FiUpload}
           onClick={() => setCurrentPage("delivery")}
         />
         <KPICard
           title="Transfers"
           value={kpis.internalTransfers}
           color="yellow"
-          icon="🔄"
+          icon={FiRepeat}
           onClick={() => setCurrentPage("move-history")}
         />
       </div>
@@ -112,10 +116,13 @@ export default function DashboardHome({ setCurrentPage }) {
         {/* Recent Receipts */}
         <div className="card">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">Recent Receipts</h2>
+            <h2 className="text-xl font-semibold" style={{ color: "#2E2E2E" }}>
+              Recent Receipts
+            </h2>
             <button
               onClick={() => setCurrentPage("receipts")}
-              className="text-purple-600 hover:text-purple-700 text-sm font-semibold"
+              className="text-sm font-semibold hover:underline"
+              style={{ color: "#714B67" }}
             >
               View All →
             </button>
@@ -123,13 +130,17 @@ export default function DashboardHome({ setCurrentPage }) {
           <div className="space-y-2">
             {recentReceipts.length > 0 ? (
               recentReceipts.map((receipt) => (
-                <div key={receipt.id} className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="text-gray-700">{receipt.reference}</span>
-                  <span className="text-gray-600 text-sm">{receipt.status}</span>
+                <div key={receipt.id} className="flex justify-between py-3 border-b" style={{ borderColor: "#E5E5E7" }}>
+                  <span className="font-medium" style={{ color: "#4A4A4A" }}>
+                    {receipt.reference}
+                  </span>
+                  <span className={`badge badge-${receipt.status.toLowerCase()}`}>{receipt.status}</span>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 text-sm">No receipts found</p>
+              <p className="text-sm" style={{ color: "#8F8F9F" }}>
+                No receipts found
+              </p>
             )}
           </div>
         </div>
@@ -137,10 +148,13 @@ export default function DashboardHome({ setCurrentPage }) {
         {/* Recent Deliveries */}
         <div className="card">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">Recent Deliveries</h2>
+            <h2 className="text-xl font-semibold" style={{ color: "#2E2E2E" }}>
+              Recent Deliveries
+            </h2>
             <button
               onClick={() => setCurrentPage("delivery")}
-              className="text-purple-600 hover:text-purple-700 text-sm font-semibold"
+              className="text-sm font-semibold hover:underline"
+              style={{ color: "#714B67" }}
             >
               View All →
             </button>
@@ -148,13 +162,21 @@ export default function DashboardHome({ setCurrentPage }) {
           <div className="space-y-2">
             {recentDeliveries.length > 0 ? (
               recentDeliveries.map((delivery) => (
-                <div key={delivery.id} className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="text-gray-700">{delivery.reference}</span>
-                  <span className="text-gray-600 text-sm">{delivery.status}</span>
+                <div
+                  key={delivery.id}
+                  className="flex justify-between py-3 border-b"
+                  style={{ borderColor: "#E5E5E7" }}
+                >
+                  <span className="font-medium" style={{ color: "#4A4A4A" }}>
+                    {delivery.reference}
+                  </span>
+                  <span className={`badge badge-${delivery.status.toLowerCase()}`}>{delivery.status}</span>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 text-sm">No deliveries found</p>
+              <p className="text-sm" style={{ color: "#8F8F9F" }}>
+                No deliveries found
+              </p>
             )}
           </div>
         </div>

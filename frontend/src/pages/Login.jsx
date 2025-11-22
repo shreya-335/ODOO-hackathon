@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { FiMail, FiLock, FiUser, FiPackage } from "react-icons/fi"
 
 export default function Login({ onLogin }) {
   const [isSignup, setIsSignup] = useState(false)
@@ -32,97 +33,122 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-700 to-purple-900 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-md p-8">
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{ background: "linear-gradient(135deg, #714B67 0%, #5A3A52 100%)" }}
+    >
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-purple-700 mb-2">Stock Master</h1>
-          <p className="text-gray-600">Inventory Management System</p>
+          <div
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+            style={{ backgroundColor: "#E4D8F5" }}
+          >
+            <FiPackage className="w-8 h-8" style={{ color: "#714B67" }} />
+          </div>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: "#714B67" }}>
+            Stock Master
+          </h1>
+          <p style={{ color: "#8F8F9F" }}>Inventory Management System</p>
         </div>
 
-        {error && <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">{error}</div>}
+        {error && (
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {isSignup && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-              <input
-                type="text"
-                className="input-field"
-                placeholder="John Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
+              <label className="block text-sm font-medium mb-2" style={{ color: "#4A4A4A" }}>
+                Full Name
+              </label>
+              <div className="relative">
+                <FiUser className="absolute left-3 top-3 w-5 h-5" style={{ color: "#8F8F9F" }} />
+                <input
+                  type="text"
+                  className="input-field pl-10"
+                  placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input
-              type="email"
-              className="input-field"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <label className="block text-sm font-medium mb-2" style={{ color: "#4A4A4A" }}>
+              Email Address
+            </label>
+            <div className="relative">
+              <FiMail className="absolute left-3 top-3 w-5 h-5" style={{ color: "#8F8F9F" }} />
+              <input
+                type="email"
+                className="input-field pl-10"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              className="input-field"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <label className="block text-sm font-medium mb-2" style={{ color: "#4A4A4A" }}>
+              Password
+            </label>
+            <div className="relative">
+              <FiLock className="absolute left-3 top-3 w-5 h-5" style={{ color: "#8F8F9F" }} />
+              <input
+                type="password"
+                className="input-field pl-10"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
           {isSignup && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-              <input
-                type="password"
-                className="input-field"
-                placeholder="••••••••"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+              <label className="block text-sm font-medium mb-2" style={{ color: "#4A4A4A" }}>
+                Confirm Password
+              </label>
+              <div className="relative">
+                <FiLock className="absolute left-3 top-3 w-5 h-5" style={{ color: "#8F8F9F" }} />
+                <input
+                  type="password"
+                  className="input-field pl-10"
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
             </div>
           )}
 
-          <button type="submit" disabled={loading} className="w-full btn-primary font-semibold">
-            {loading ? "Loading..." : isSignup ? "Sign Up" : "Sign In"}
+          <button type="submit" disabled={loading} className="w-full btn-primary py-3 text-base">
+            {loading ? "Loading..." : isSignup ? "Create Account" : "Sign In"}
           </button>
         </form>
 
         {/* Toggle Sign Up */}
         <div className="mt-6 text-center">
-          <p className="text-gray-600 text-sm">
+          <p className="text-sm" style={{ color: "#8F8F9F" }}>
             {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
             <button
               type="button"
               onClick={() => setIsSignup(!isSignup)}
-              className="text-purple-700 font-semibold hover:underline"
+              className="font-semibold hover:underline"
+              style={{ color: "#714B67" }}
             >
               {isSignup ? "Sign In" : "Sign Up"}
             </button>
           </p>
         </div>
-
-        {/* Forgot Password */}
-        {!isSignup && (
-          <div className="mt-4 text-center">
-            <button type="button" className="text-purple-600 text-sm hover:underline">
-              Forgot your password?
-            </button>
-          </div>
-        )}
       </div>
     </div>
   )
