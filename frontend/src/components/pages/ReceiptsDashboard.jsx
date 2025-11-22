@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { FiPlus, FiSearch, FiList, FiGrid, FiEye } from "react-icons/fi"
 import { API_URL } from "../../config"
 
 export default function ReceiptsDashboard({ setCurrentPage }) {
@@ -19,7 +20,7 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
       const data = await response.json()
       setReceipts(data)
     } catch (error) {
-      console.error("[v0] Error fetching receipts:", error)
+      console.error("Error fetching receipts:", error)
     } finally {
       setLoading(false)
     }
@@ -48,70 +49,114 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
     <div className="p-8 mt-16">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-grey-900 mb-2">Receipts</h1>
-        <p className="text-grey-600">When user click on Receipt operations - By default land on List View</p>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: "#714B67" }}>
+          Receipts
+        </h1>
+        <p style={{ color: "#8F8F9F" }}>When user click on Receipt operations - By default land on List View</p>
       </div>
 
       {/* Controls */}
       <div className="flex gap-4 mb-6">
-        <button onClick={() => setCurrentPage("receipt-create")} className="btn-primary">
-          + NEW
+        <button onClick={() => setCurrentPage("receipt-create")} className="btn-primary flex items-center gap-2">
+          <FiPlus className="w-5 h-5" />
+          NEW
         </button>
-        <input
-          type="text"
-          placeholder="Allow user to search receipt based on reference & contacts..."
-          className="input-field flex-1"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <div className="relative flex-1">
+          <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: "#8F8F9F" }} />
+          <input
+            type="text"
+            placeholder="Search receipt by reference & contacts..."
+            className="input-field pl-10"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         <button
           onClick={() => setViewMode("list")}
-          className={`px-4 py-2 rounded ${viewMode === "list" ? "bg-purple-700 text-white" : "bg-grey-200 text-grey-700"}`}
+          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all ${
+            viewMode === "list" ? "font-semibold shadow-sm" : ""
+          }`}
+          style={{
+            backgroundColor: viewMode === "list" ? "#E4D8F5" : "#E5E5E7",
+            color: viewMode === "list" ? "#714B67" : "#4A4A4A",
+          }}
         >
-          📋 List
+          <FiList className="w-5 h-5" />
+          List
         </button>
         <button
           onClick={() => setViewMode("kanban")}
-          className={`px-4 py-2 rounded ${viewMode === "kanban" ? "bg-purple-700 text-white" : "bg-grey-200 text-grey-700"}`}
+          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all ${
+            viewMode === "kanban" ? "font-semibold shadow-sm" : ""
+          }`}
+          style={{
+            backgroundColor: viewMode === "kanban" ? "#E4D8F5" : "#E5E5E7",
+            color: viewMode === "kanban" ? "#714B67" : "#4A4A4A",
+          }}
         >
-          📊 Kanban
+          <FiGrid className="w-5 h-5" />
+          Kanban
         </button>
       </div>
 
       {/* Table */}
       {loading ? (
         <div className="text-center py-12">
-          <p className="text-grey-600">Loading receipts...</p>
+          <p style={{ color: "#8F8F9F" }}>Loading receipts...</p>
         </div>
       ) : viewMode === "list" ? (
         <div className="card overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b-2 border-purple-700">
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">Reference</th>
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">Date</th>
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">Contact</th>
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">From</th>
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">To</th>
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">Status</th>
-                <th className="text-left py-3 px-4 font-semibold text-purple-700">Action</th>
+              <tr className="border-b-2" style={{ borderColor: "#714B67" }}>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  Reference
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  Date
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  Contact
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  From
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  To
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  Status
+                </th>
+                <th className="text-left py-3 px-4 font-semibold" style={{ color: "#714B67" }}>
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {filteredReceipts.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="text-center py-8 text-grey-500">
+                  <td colSpan="7" className="text-center py-8" style={{ color: "#8F8F9F" }}>
                     No receipts found. Click NEW to create one.
                   </td>
                 </tr>
               ) : (
                 filteredReceipts.map((receipt) => (
                   <tr key={receipt.id} className="table-row">
-                    <td className="py-3 px-4 font-mono text-purple-600">{receipt.reference}</td>
-                    <td className="py-3 px-4 text-grey-600">{new Date(receipt.createdat).toLocaleDateString()}</td>
-                    <td className="py-3 px-4">{receipt.receivefrom || "N/A"}</td>
-                    <td className="py-3 px-4">{receipt.warehouseid || "vendor"}</td>
-                    <td className="py-3 px-4">WH/Stock1</td>
+                    <td className="py-3 px-4 font-mono" style={{ color: "#714B67" }}>
+                      {receipt.reference}
+                    </td>
+                    <td className="py-3 px-4" style={{ color: "#8F8F9F" }}>
+                      {new Date(receipt.createdat).toLocaleDateString()}
+                    </td>
+                    <td className="py-3 px-4" style={{ color: "#4A4A4A" }}>
+                      {receipt.receivefrom || "N/A"}
+                    </td>
+                    <td className="py-3 px-4" style={{ color: "#4A4A4A" }}>
+                      {receipt.warehouseid || "vendor"}
+                    </td>
+                    <td className="py-3 px-4" style={{ color: "#4A4A4A" }}>
+                      WH/Stock1
+                    </td>
                     <td className="py-3 px-4">
                       <span
                         className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(receipt.status)}`}
@@ -122,8 +167,10 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
                     <td className="py-3 px-4">
                       <button
                         onClick={() => setCurrentPage(`receipt-edit-${receipt.id}`)}
-                        className="text-purple-600 hover:text-purple-700 text-sm font-semibold"
+                        className="flex items-center gap-1 text-sm font-semibold transition-colors"
+                        style={{ color: "#714B67" }}
                       >
+                        <FiEye className="w-4 h-4" />
                         View
                       </button>
                     </td>
@@ -132,7 +179,7 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
               )}
             </tbody>
           </table>
-          <div className="p-4 text-grey-600 text-sm">
+          <div className="p-4 text-sm" style={{ color: "#8F8F9F" }}>
             <p>Populate all work orders added to manufacturing order</p>
             <p className="mt-2">
               <strong>In event should be display in green</strong>
@@ -146,13 +193,23 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
         <div className="grid grid-cols-3 gap-6">
           {/* Kanban View */}
           <div className="card">
-            <h3 className="font-bold text-lg mb-4 text-grey-700">Draft</h3>
+            <h3 className="font-bold text-lg mb-4" style={{ color: "#4A4A4A" }}>
+              Draft
+            </h3>
             {filteredReceipts
               .filter((r) => r.status === "Draft")
               .map((receipt) => (
-                <div key={receipt.id} className="p-4 bg-grey-50 rounded mb-3 border-l-4 border-grey-400">
-                  <p className="font-mono text-sm text-purple-600">{receipt.reference}</p>
-                  <p className="text-xs text-grey-600 mt-1">{receipt.receivefrom || "No contact"}</p>
+                <div
+                  key={receipt.id}
+                  className="p-4 rounded mb-3 border-l-4"
+                  style={{ backgroundColor: "#E5E5E7", borderColor: "#8F8F9F" }}
+                >
+                  <p className="font-mono text-sm" style={{ color: "#714B67" }}>
+                    {receipt.reference}
+                  </p>
+                  <p className="text-xs mt-1" style={{ color: "#8F8F9F" }}>
+                    {receipt.receivefrom || "No contact"}
+                  </p>
                 </div>
               ))}
           </div>
@@ -163,8 +220,12 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
               .filter((r) => r.status === "Ready")
               .map((receipt) => (
                 <div key={receipt.id} className="p-4 bg-blue-50 rounded mb-3 border-l-4 border-blue-400">
-                  <p className="font-mono text-sm text-purple-600">{receipt.reference}</p>
-                  <p className="text-xs text-grey-600 mt-1">{receipt.receivefrom || "No contact"}</p>
+                  <p className="font-mono text-sm" style={{ color: "#714B67" }}>
+                    {receipt.reference}
+                  </p>
+                  <p className="text-xs mt-1" style={{ color: "#8F8F9F" }}>
+                    {receipt.receivefrom || "No contact"}
+                  </p>
                 </div>
               ))}
           </div>
@@ -175,8 +236,12 @@ export default function ReceiptsDashboard({ setCurrentPage }) {
               .filter((r) => r.status === "Done")
               .map((receipt) => (
                 <div key={receipt.id} className="p-4 bg-green-50 rounded mb-3 border-l-4 border-green-400">
-                  <p className="font-mono text-sm text-purple-600">{receipt.reference}</p>
-                  <p className="text-xs text-grey-600 mt-1">{receipt.receivefrom || "No contact"}</p>
+                  <p className="font-mono text-sm" style={{ color: "#714B67" }}>
+                    {receipt.reference}
+                  </p>
+                  <p className="text-xs mt-1" style={{ color: "#8F8F9F" }}>
+                    {receipt.receivefrom || "No contact"}
+                  </p>
                 </div>
               ))}
           </div>
