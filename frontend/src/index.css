@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f9fafb;
+}
+
+:root {
+  --purple-primary: #6b21a8;
+  --purple-light: #9333ea;
+  --grey-dark: #374151;
+  --grey-medium: #6b7280;
+  --grey-light: #f3f4f6;
+  --white: #ffffff;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply px-4 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800 transition;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-grey-200 text-grey-800 rounded-md hover:bg-grey-300 transition;
+}
+
+.input-field {
+  @apply w-full px-3 py-2 border border-grey-300 rounded-md focus:outline-none focus:border-purple-600;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-sm border border-grey-200 p-6;
+}
+
+.table-row {
+  @apply border-b border-grey-200 hover:bg-grey-50 transition;
+}

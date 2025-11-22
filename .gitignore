@@ -1,0 +1,88 @@
+# ============================
+# Node / Vite / React
+# ============================
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vite local cache
+.vite/
+.cache/
+vite.config.ts.timestamp*
+vite.config.js.timestamp*
+
+# Temporary files
+*.tmp
+*.temp
+
+# ============================
+# Python / Odoo
+# ============================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Odoo addons
+*.egg-info/
+*.mo
+*.pot
+
+# Bytecode & compiled files
+*.so
+*.o
+*.a
+
+# Database & backups
+*.db
+*.dump
+*.sql
+*.pg
+*.bak
+*.backup
+
+# ============================
+# IDE / Editor Files
+# ============================
+
+# VS Code
+.vscode/
+.history/
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+
+# ============================
+# Environment files
+# ============================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# ============================
+# Windows system junk
+# ============================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================
+# Git / Project metadata
+# ============================
+.DS_Store
+*.swp
+*.swo
+
+# Python virtual environments
+venv/
+env/
+ENV/
+.venv/

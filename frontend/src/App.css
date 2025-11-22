@@ -1,0 +1,29 @@
+/* Odoo-style Color Scheme */
+:root {
+  --purple-primary: #6b21a8;
+  --purple-light: #9333ea;
+  --grey-dark: #374151;
+  --grey-medium: #6b7280;
+  --grey-light: #f3f4f6;
+  --white: #ffffff;
+}
+
+/* App Styling */
+.app-container {
+  min-height: 100vh;
+  background-color: var(--grey-light);
+}
+
+.app-header {
+  background-color: var(--white);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.app-sidebar {
+  background-color: var(--white);
+  border-right: 1px solid #e5e7eb;
+}
+
+.app-content {
+  background-color: var(--grey-light);
+}
